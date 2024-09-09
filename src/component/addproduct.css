@@ -1,0 +1,92 @@
+*{
+margin: 0;
+padding: 0;
+}
+.wholeConatiner{
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.container{
+    width:50%;
+    background-color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin:0% 35%;
+    border-radius: 10px;
+}
+.container:hover{
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+    
+}
+.container h2{
+    color: rgba(0, 0, 0, 0.712);
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.container label{
+    color:#4e4949;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+    font-size: 1.2rem;
+   
+}
+.container td input{
+ width:100%;
+}
+.container input:focus{
+    border: 2px solid #c850c0;
+}
+.container button{
+    margin-top: 0.5rem;
+    margin-bottom:0.3rem ;
+    
+    border-radius: 1.5rem;
+    padding: 2%;
+    color:white;
+    background-color: rgba(137, 43, 226, 0.781);
+    width:30%;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.container button:hover{
+    background-color: #555;
+}
+.back button{
+    position: absolute;
+    right: 2%;
+    top:2%;
+    padding:0.7rem 3%;
+    border-radius: 10px;
+    color: white;
+    background-color: rgba(137, 43, 226, 0.842);
+    border: none;
+    outline: none;
+}
+.back button:hover{
+    background-color:#666 ;
+}
+@media (max-width:728px){
+    .container tr{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+    .container td{
+        padding: 0.7rem;
+    }
+    .wholeConatiner{
+        height: 100%;
+    }
+
+
+}

@@ -1,0 +1,247 @@
+.dashboard-main {
+    display: flex;
+    min-height: 100vh;
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+  }
+  .user-info{
+    font-size: 1.7rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: start;
+    justify-content: center;
+    padding: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-left: 2%;
+    letter-spacing: 3px;
+    
+    font-family: "New Amsterdam", sans-serif;
+}
+.user-info1{
+  width:10rem;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+    padding: 1.1rem;
+    font-weight: 600; 
+    color: #222;
+    margin-left: 2%;
+    align-items: center;
+}
+
+
+
+  .main {
+  display: flex;
+  flex-direction: column;
+   flex: 7;
+  
+  }
+  .header{
+    flex:1;
+    box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  
+
+  
+  }
+  .header1{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+  }
+  .content{
+    flex:7;
+  }
+  
+  .cards-container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+  }
+  
+  .card {
+    background:#f7f2f2;
+    padding: 4%;
+    border-radius: 8px;
+    box-shadow: 0 10px 7px rgba(0, 0, 0, 1);
+    text-align: center;
+    width: 16%;
+    margin-top: 2rem;
+    margin-left: 2rem;
+
+  }
+  
+  .card h3 {
+    margin: 0;
+    font-size:1.3rem;
+    color: #333;
+  }
+  
+  .card p {
+    font-size: 2rem;
+    font-weight: bolder;
+    color: rgba(137, 43, 226, 0.774);
+    margin: 10px 0 0;
+  }
+  .scribble {
+    display: inline-block;
+    font-weight: bold;
+    color: #ff5833; /* Text color */
+    position: relative;
+    padding-bottom: 5px; /* Space between text and line */
+  }
+
+  .scribble::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px; /* Thickness of the line */
+    background-color: rgba(137, 43, 226, 0.76);/* Color of the scribble line */
+    border-radius: 10px;
+    transform: rotate(-3deg);
+  }
+  
+  .sidebar {
+    display: flex;
+    background-color:white;
+    flex-direction: column;
+    height: 96.5%;
+    padding: 10px 0;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+    
+  }
+  .left{
+    flex:2;
+  }
+  .close-btn {
+    background: none;
+    border: none;
+    display: none;
+
+    font-size: 1.5rem;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+  }
+
+  .hamburger {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1100;
+  }
+  
+  
+  .icon{
+    font-size: 1.5rem;
+    color: rgb(137, 43, 226);
+    margin: 5px;
+  }
+  .sidebar-right{
+    display: flex;
+    margin-top: 3%;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    gap:2rem
+
+
+    
+  }
+  
+  .sidebar-link {
+    font-family: 'poppins';
+   
+    color:  #333;
+    text-decoration: none;
+    padding: 10px 0;
+    cursor: pointer;
+    margin-bottom: 10px;
+    border: 3px solid rgba(255, 235, 205, 0.411);
+    border: none;
+    border-radius: 2px;
+    /* transition: border 0.7s ease; */
+    font-size: 1rem;
+  }
+  
+  .sidebar-link:hover {
+    transform: scale(1);
+   
+    border-bottom:2px solid rgba(137, 43, 226, 0.76);
+    border-radius: 2px;
+    color:rgba(255, 68, 0, 0.788);
+
+  }
+  
+  @media (max-width: 900px) {
+    .dashboard-main {
+        flex-direction: column;
+    }
+    .header{
+      position:fixed;
+      width:100%;
+      top:0;
+    }
+    .content{
+      margin-top: 5rem;
+    }
+
+    .cards-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .card {
+        width: 70%;
+        margin-left: 0;
+    }
+    
+
+    .sidebar {
+        display: none;
+       
+        /*width: 100%;
+        height: 100vh;
+        z-index: 1000; */
+    }
+
+    .sidebar.active {
+        display: flex;
+        position: relative;
+        top:4rem;
+        background-color: antiquewhite;
+    }
+    .search{
+      display: none;
+    }
+    
+
+    .hamburger {
+        display: block;
+        z-index: 1000;
+    }
+
+    .close-btn {
+        display: block;
+        z-index: 1000;
+    }
+}
