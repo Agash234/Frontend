@@ -59,7 +59,7 @@ const Register = () => {
     const handleclick=()=>{
         navigate("/login");
     }
-    f
+    
 
   return (
     <div className='container-main'>

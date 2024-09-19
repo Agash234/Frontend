@@ -11,9 +11,9 @@ const Product = () => {
   const [products, setProducts] = useState([]);
   const [Error,setError]=useState(null);
   const productlist = [
-    { id: 1, name: 'Product 1', image: '/product1.jpg' },
-    { id: 2, name: 'Product 2', image: '/product2.jpg' },
-    { id: 3, name: 'Product 3', image: '/product3.jpg' },
+    { id: 1, name: 'Product 1', image: 'https://s7g10.scene7.com/is/image/ktm/config-banner?wid=1200&dpr=off' },
+    { id: 2, name: 'Product 2', image: 'https://cdn.pixabay.com/photo/2016/04/07/06/53/bmw-1313343_1280.jpg' },
+    { id: 3, name: 'Product 3', image: 'https://www.verneidemotoplex.com/imglib/promos/Indian/2024/2024-imc-na-own-americas-first-web-banner-scout-family-1920x640.jpg' },
     // Add more products as needed
   ];
   const carouselRef = useRef(null);
@@ -80,40 +80,32 @@ const Product = () => {
   };
 
   return (
-    <>
-    <div className='header'style={{padding:"1rem"}}>
-      <h1 style={{color:"rgb(137, 43, 226)"}}>Product list</h1>
-      <button onClick={() => { navigate('/') } } style={{position:"absolute", right:"1rem",top:"0.6rem",width: "80px", height: "50px",borderRadius:"10px" ,color:"white",backgroundColor:"rgb(137, 43, 226)"}}>Back</button>
-    </div>
+    < div className='containerfull'>
+    <header className='header-1'>
+      <h1 style={{position:"relative",color:"blue"}}>Product list</h1>
+      <button  className="btn-1" onClick={() => { navigate('/') } } style={{padding:"10px",position:"relative",backgroundColor:" rgb(137, 43, 226)",color:"white",borderRadius:"10px",margin:"10px"}}>Back</button>
+    </header>
 
-    <div style={{margin:" 2rem 5rem"}}>
-      <div className='scroll-container'>
-      <button className="carousel-button prev" style={{position:"absolute",top:"2rem",left:"0",zIndex:"1000"}} onClick={handlePrevious}>
+    <main className='main-container1'>
+      <section  className='scroll-container'>
+      <button className="button-prev" style={{position:"absolute",top:"40%",left:"0",zIndex:"1000",padding:"5px",borderRadius:"50%",border:"none"}} onClick={handlePrevious}>
         &#10094; 
       </button>
         <div className='carousel-wrapper'>
       <div className="carousel" ref={carouselRef}>
           {productlist.map(product => (
             <div key={product.id} className="carousel-item">
-              <img src={product.image} alt={product.name} />
+              <img  src={product.image} alt={product.name} />
             </div>
           ))}
         </div>
         </div>
-        <button className="carousel-button next" style={{position:"absolute",top:"2rem",right:"0"}} onClick={handleNext}>
+        <button className="button-next" style={{position:"absolute",top:"40%",right:"0",border:"none",borderRadius:"50%",padding:"5px"}} onClick={handleNext}>
         &#10095; {/* Unicode character for right arrow */}
       </button>
-      <div className="carousel-dots">
-        {productlist.map((_, index) => (
-          <span
-            key={index}
-            className={`dot ${index === currentIndex ? 'active' : ''}`}
-            onClick={() => handleDotClick(index)}
-          ></span>
-        ))}
-        </div>
-      </div>
-      <div className="products">
+     
+      </section>
+      <section className="products">
            {products.map(product => (
           <div className="product-card" 
           key={product._id} >
@@ -142,8 +134,9 @@ const Product = () => {
         ))}
 
 
-      </div>
-      </div></> 
+      </section>
+      </main>
+      </div> 
   );
 };
 

@@ -162,7 +162,7 @@
     align-items: center;
     flex-direction: column;
     justify-content: space-between;
-    gap:2rem
+    gap:3rem;
 
 
     
@@ -214,6 +214,9 @@
         width: 70%;
         margin-left: 0;
     }
+    .sidebar-right{
+      gap:1rem;
+    }
     
 
     .sidebar {
@@ -226,9 +229,9 @@
 
     .sidebar.active {
         display: flex;
-        position: relative;
+  
         top:4rem;
-        background-color: antiquewhite;
+        background-color: rgba(215, 211, 205, 0.379);
     }
     .search{
       display: none;

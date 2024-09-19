@@ -32,14 +32,13 @@ const Dashboard=()=> {
   }, [navigate]);
 
   useEffect(() => {
-    fetchUsers();
+    fetchWithToken()
     fetchProducts()
   }, []);
   
  
-  const fetchUsers=async()=>{
     const token=localStorage.getItem('token')
-    const fetchWithToken=async(token)=>{
+    const fetchWithToken=async()=>{
     try {
       const userResponse = await axios.get('http://localhost:8001/api/users/getusers',{
         headers:{
@@ -53,19 +52,14 @@ const Dashboard=()=> {
 
     catch (error) {
       if(error.response && error.response.status === 403) {
-      try {
-        token = await refreshToken(); 
-        return await fetchWithToken(token); 
-      } 
-      catch (refreshError) {
-        console.error('Error refreshing token:', refreshError);
-        throw new Error('Session expired. Please log in again.');
-
-      }
+     
+        localStorage.removeItem('token')
+        navigate('/login')
+        console.log("session expired")
     }
   }
   }
-};
+
 
 
   const fetchProducts=async()=>{

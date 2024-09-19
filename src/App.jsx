@@ -1,7 +1,7 @@
 import React from 'react'
 import { BrowserRouter as Router, Routes,Route } from 'react-router-dom'
 import Sidebar from './component/sidebar'
-import  Register from './component/register'
+import Register from './component/register'
 import Product from './component/product'
 import Login from './component/login'
 
@@ -20,6 +20,7 @@ const App = () => {
     <Routes>
       
         <Route path="/login" element={ <Login />} />
+        <Route path="/register" element={ <Register/>}/>
     
         <Route path="/Dashboard" element={<Dashboard />}  />
         <Route path="/userlist" element={<UsersList />}/>
