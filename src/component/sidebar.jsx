@@ -3,9 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { BsPersonCircle } from "react-icons/bs";
 import { IoLogoBitbucket } from "react-icons/io";
 
+import { Usercontext } from './usercontext';
+import { useContext } from 'react';
+
 
 
 const Sidebar = () => {
+  const{user}=useContext(Usercontext)
   const[isopen,setisopen]=useState(false)
   const navigate = useNavigate();
   const handlesubmit=()=>{
@@ -31,7 +35,7 @@ const Sidebar = () => {
       }}>Logout</div>
       </div>
 
-      <div className="user-info1" ><BsPersonCircle className='icon'/> {localStorage.getItem("data")} </div>
+      <div className="user-info1" ><BsPersonCircle className='icon'/> {user}</div>
     </div>
     {isopen?<button className='close-btn' onClick={handlesubmit}>X</button>:<button className="hamburger"onClick={handlesubmit}> &#9776;</button>}
     </div>

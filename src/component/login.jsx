@@ -6,6 +6,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { FaUser } from "react-icons/fa";
 import { RiLockPasswordLine } from "react-icons/ri";
 import "./login.css"
+import { useContext } from 'react';
+import { Usercontext } from './usercontext';
 
 
 function Login() {
@@ -13,6 +15,7 @@ function Login() {
     const [password, setPassword] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [isFocused1, setIsFocused1] = useState(false);
+    const{setuser}=useContext(Usercontext)
      
 
    const navigate = useNavigate();
@@ -38,7 +41,8 @@ const handleSubmit = async (event) => {
 
                 //   setuser(response.data.user.username)
                 localStorage.setItem('token', response.data.token)
-                localStorage.setItem('data',response.data.user.username)
+                console.log(response.data.user)
+                setuser(response.data.user.username)
                 localStorage.setItem('refresh',response.data.refreshToken)
 
             

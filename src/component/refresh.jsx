@@ -1,28 +1,71 @@
-import axios from 'axios'
-import {useNavigate } from 'react-router-dom';
+// src/axios.js
+import axios from 'axios';
 
-export const refreshToken = async() => {
-    const navigate=useNavigate();
-    try{
-        const refreshtoken=localStorage.getItem('refresh')
-        console.log(refreshtoken)
-        if(!refreshtoken){
-            throw new Error("the refresh token is not found")
+const axiosInstance = axios.create({
+    baseURL: 'http://localhost:8001/api', 
+    headers: {
+        'Content-Type': 'application/json',
+    },
+});
 
-        } 
-        const response =await axios.post('http://localhost:8001/api/refresh/refreshtoken',{refreshtoken});
-            const{token,refreshtoken:newRefreshToken}=response.data
+// Add request interceptor
+axiosInstance.interceptors.request.use(
+    (config) => {
+        // Get token from localStorage
+        const token = localStorage.getItem('token');
+        if (token) {
+            // If token exists, attach it to the Authorization header
+            config.headers['Authorization'] = `Bearer ${token}`;
+        }
+        return config;
+    },
+    (error) => {
+        return Promise.reject(error);
+    }
+);
 
-    localStorage.setItem('token', token);
-    localStorage.setItem('refresh', newRefreshToken || refreshToken);
+// Add response interceptor
+axiosInstance.interceptors.response.use(
+    (response) => {
+        // If the response is successful, just return it
+        return response;
+    },
+    async (error) => {
+        const originalRequest = error.config;
 
-    return token;
-  }
-   catch (error) {
-    console.error('Failed to refresh token:', error);
-    localStorage.removeItem('token');
-    localStorage.removeItem('refreshToken');
-    navigate('/login')
-    throw error;
-  }
-};
+        // If error status is 401 (Unauthorized) and not already retrying
+        if (error.response.status === 403 && !originalRequest._retry) {
+            originalRequest._retry = true; // Mark request as retried
+
+            // Get the refresh token
+            const refreshToken = localStorage.getItem('refresh');
+
+            if (refreshToken) {
+                try {
+                    // Attempt to refresh the token
+                    const response = await axios.post('http://localhost:8001/api/refresh/refreshtoken', {
+                        token: refreshToken,
+                       
+                    });
+                    console.log(response.data.token)
+
+                    
+                    localStorage.setItem('token', response.data.token);
+
+                    // Retry the original request with the new token
+                    originalRequest.headers['Authorization'] = `Bearer ${response.data.token}`;
+                    return axiosInstance(originalRequest);
+                } catch (err) {
+                    // If refreshing the token fails, redirect to login
+                    localStorage.removeItem('token');
+                    localStorage.removeItem('refresh');
+                    window.location.href = '/login';
+                }
+            }
+        }
+
+        return Promise.reject(error);
+    }
+);
+
+export default axiosInstance;

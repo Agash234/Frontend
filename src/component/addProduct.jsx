@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios'
 import {useNavigate} from "react-router-dom"
 import './addproduct.css'
+import axiosInstance from './refresh';
 
 const AddProduct = () => {
 
@@ -46,11 +47,8 @@ const AddProduct = () => {
       const imageUrl=response.data.imageUrl;
 
       const productdata={name, price, description, quantity, Image: imageUrl}
-     const productadd= await axios.post('http://localhost:8001/api/products/addproduct',productdata,{
-      headers:{
-        Authorization:`Bearer ${token}`
-      }
-     });
+     const productadd= await axiosInstance.post('http://localhost:8001/api/products/addproduct',productdata)
+     
 
       setName('');
       setPrice('');
@@ -60,11 +58,7 @@ const AddProduct = () => {
       alert('Product added successfully!');
     } 
     catch (error) {
-      if(error.response&&error.response.status==403){
-        localStorage.removeItem('token')
-        setError("session expired")
-        navigate('/login')
-      }
+     console.log("Error in Adding Product",error)
     }
   };
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import {useNavigate} from "react-router-dom"
+import axiosInstance from './refresh';
 
 const UserList = () => {
   const navigate = useNavigate()
@@ -14,28 +14,29 @@ const UserList = () => {
 const token= localStorage.getItem('token')
   const fetchUsers = async () => {
     try {
-      const userResponse = await axios.get('http://localhost:8001/api/users/getusers',{
-        headers:{
-          Authorization:`bearer ${token}`
-        }
-      });
+      const userResponse = await axiosInstance.get('users/getusers')
+      // ,{
+      //   headers:{
+      //     Authorization:`bearer ${token}`
+      //   }
+      // });
       setusers(userResponse.data);
       setError(null)
     } catch (error) {
-      if(error.response&&error.response.status==403){
-        localStorage.removeItem('token')
-        setError("session expired")
-        navigate('/login')
-      }
-      else{
+      // if(error.response&&error.response.status==403){
+      //   localStorage.removeItem('token')
+      //   setError("session expired")
+      //   navigate('/login')
+      // }
+      // else{
       setError('Error fetching counts:', error);
-    }
+    // }
   }
   };
 
   return (
     <>
-    <div className="headers" style={{padding:"1rem", boxShadow: "0 6px 0 rgba(0, 0, 0, 0.1)"}}>
+    <div className="headers" style={{padding:"1rem", boxShadow: "0 6px 0 rgba(0, 0, 0, 0.1)",width:"100%"}}>
        <h1 style={{fontWeight:"600",color:"rgb(137, 43, 226)"}}>Users List</h1>
     </div>
 

@@ -1,6 +1,5 @@
 // src/components/Dashboard.js
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Sidebar from './sidebar';
 import {useNavigate} from "react-router-dom";
 import { LuUsers } from "react-icons/lu";
@@ -9,7 +8,9 @@ import "./dashboard.css"
 import { IoSearch } from "react-icons/io5";
 import { IoNotificationsSharp } from "react-icons/io5";
 import { BsPersonCircle } from "react-icons/bs";
-import { refreshToken } from './refresh';
+import { Usercontext } from './usercontext';
+import { useContext } from 'react';
+import axiosInstance from './refresh';
 
 
 
@@ -19,6 +20,7 @@ const Dashboard=()=> {
   const [userCount, setUserCount] = useState(0);
   const [productCount, setProductCount] = useState(0);
   const[error,setError]=useState(null)
+  const{user}=useContext(Usercontext)
 
   useEffect(()=>{
     const token=localStorage.getItem('token')
@@ -37,26 +39,28 @@ const Dashboard=()=> {
   }, []);
   
  
-    const token=localStorage.getItem('token')
     const fetchWithToken=async()=>{
     try {
-      const userResponse = await axios.get('http://localhost:8001/api/users/getusers',{
-        headers:{
-          Authorization: `Bearer ${token}`
-        }
-      });
+      const userResponse = await axiosInstance.get('users/getusers')
+      //   {
+      //   headers:{
+      //     Authorization: `Bearer ${token}`
+      //   }
+      // });
       
       setUserCount(userResponse.data.length);
       setError(null)
     } 
 
-    catch (error) {
-      if(error.response && error.response.status === 403) {
+    // catch (error) {
+    //   if(error.response && error.response.status === 403) {
      
-        localStorage.removeItem('token')
-        navigate('/login')
-        console.log("session expired")
-    }
+    //     localStorage.removeItem('token')
+    //     navigate('/login')
+    //     console.log("session expired")
+    // }
+    catch (error) {
+      console.log('Error fetching data', error);
   }
   }
 
@@ -65,24 +69,26 @@ const Dashboard=()=> {
   const fetchProducts=async()=>{
     try {
       // const productRespose = await axios.get('/api/products');
-      const productResponse = await axios.get('http://localhost:8001/api/products/getproducts',{
-        headers:{
-          Authorization:`bearer ${token}`
-        }
-      });
+      const productResponse = await axiosInstance.get('products/getproducts')
+      // {
+      //   headers:{
+      //     Authorization:`bearer ${token}`
+      //   }
+      // });
       console.log(productResponse.data.length)
       
       setProductCount(productResponse.data.length);
       setError(null)
     } catch (error) {
-      if(error.response&&error.response.status==403){
-        localStorage.removeItem('token')
-        setError("session expired")
-        navigate('/login')
-      }
-      else{
-      setError('Error fetching counts:', error);
-    }
+    //   if(error.response&&error.response.status==403){
+    //     localStorage.removeItem('token')
+    //     setError("session expired")
+    //     navigate('/login')
+    //   }
+    //   else{
+    //   setError('Error fetching counts:', error);
+    // }
+    console,log("Error fetching data",error)
   }
   }
 
@@ -104,7 +110,7 @@ const Dashboard=()=> {
            <div >
             <span><IoNotificationsSharp /></span>
             </div>
-            <div className="user-info1 useinfo2"><BsPersonCircle className='icon'/> {localStorage.getItem("data")} </div>
+            <div className="user-info1 useinfo2"><BsPersonCircle className='icon'/> {user} </div>
             </div>
             
               
@@ -112,7 +118,7 @@ const Dashboard=()=> {
         </div>
   
          <div className='content'>
-           <h1 style={{fontWeight:"700",color:"#222", marginLeft:"2%",fontSize:"2.2rem",marginTop:"2%"}}>Welcome <span style={{color:"rgba(137, 43, 226, 0.774)"}}>{localStorage.getItem('data')}!</span> </h1>
+           <h1 style={{fontWeight:"700",color:"#222", marginLeft:"2%",fontSize:"2.2rem",marginTop:"2%"}}>Welcome <span style={{color:"rgba(137, 43, 226, 0.774)"}}>{user}!</span> </h1>
            <h2 style={{textAlign:"center",color:"#333",marginTop:"1.5rem",marginBottom:"1rem",fontSize:"2rem",fontFamily: "Roboto Slab"}}> Your <span className="scribble" style={{fontFamily: "Roboto Slab"}}>Ultimate</span> Bike Hub at a Glance!</h2>
          
 

@@ -9,12 +9,14 @@ import Dashboard from './component/Dashboard'
 import UserProfile from './component/userprofile'
 import UsersList from './component/user'
 import AddProduct from './component/addProduct'
+import { Userprovider } from './component/usercontext'
 // import PrivateRoute from './component/protect'
  
 
 const App = () => {
   
   return (
+    <Userprovider>
     <Router>
     
     <Routes>
@@ -32,15 +34,9 @@ const App = () => {
 
       </Routes>
      
-      {/* <Routes>
-        <Route path="/" element={<Register/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/Dashboard" element={<Protect><Dashboard/></Protect>}/>
-        <Route path="/product" element={<Protect><Product/></Protect>}/>
-        <Route path="/user" element={<Protect><UsersList/></Protect>}/>
-        <Route path="/userprofile" element={<Protect><UserProfile/></Protect>}/>
-      </Routes> */}
+      
     </Router>
+    </Userprovider>
   );
 }
 

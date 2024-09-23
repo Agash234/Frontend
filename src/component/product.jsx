@@ -1,10 +1,10 @@
 import React, { useEffect, useState,useRef } from 'react';
-import axios from 'axios';
 import {useNavigate} from "react-router-dom";
 import "./product.css";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { FaStar } from "react-icons/fa";
 import { FaStarHalfStroke } from "react-icons/fa6";
+import axiosInstance from './refresh';
 
 const Product = () => {
   const navigate = useNavigate()
@@ -60,22 +60,23 @@ const Product = () => {
       return;
     }
     try {
-      const productResponse = await axios.get('http://localhost:8001/api/products/getproducts',{
-        headers:{
-          Authorization:`Bearer ${token}`,
-        }
-      });
+      const productResponse = await axiosInstance.get('http://localhost:8001/api/products/getproducts')
+      // ,{
+      //   headers:{
+      //     Authorization:`Bearer ${token}`,
+      //   }
+      // });
       setProducts(productResponse.data);
       setError(null)
-    } catch (error) {
-      if(error.response&&error.response.status==403){
-        localStorage.removeItem('token');
-        navigate('/login')
-        setError('session expired')
-      }
-      else{
-      setError('Error fetching products:', error);
-    }
+    } catch (Error) {
+      // if(error.response &&error.response.status==403){
+      //   localStorage.removeItem('token');
+      //   navigate('/login')
+      //   setError('session expired')
+      // }
+      // else{
+      setError('Error fetching products:', Error);
+    // }
   }
   };
 
